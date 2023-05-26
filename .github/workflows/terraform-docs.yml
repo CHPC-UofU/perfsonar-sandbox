@@ -1,0 +1,27 @@
+name: Terraform docs (GCloud)
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  docs:
+    name: Documentation
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          path: .
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Render terraform docs and push changes back to PR
+        uses: terraform-docs/gh-actions@v1.0.0
+        with:
+          working-dir: ./resources/terraform/gcloud
+          git-push: "true"
