@@ -11,8 +11,3 @@ data "google_client_config" "default" {}
 #- Modules
 #
 
-module "tfstate-bucket" {
-  source  = "./modules/tfstate-bucket"
-
-  project_id = var.project_id
-}
