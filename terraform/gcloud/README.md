@@ -17,33 +17,13 @@ Terraform module for the perfSONAR sandbox project currently focusing on the Goo
    
     * Enabling either of these via Terraform requires they already be enabled ([learn more](https://medium.com/rockedscience/how-to-fully-automate-the-deployment-of-google-cloud-platform-projects-with-terraform-16c33f1fb31f)).
 
-1. A populated `./secrets.tfvars` file created from `./secrets.tfvars.tmpl`
+1. A populated `./override.tf` file created from `./override.tf.tmpl`
 
 ## Contributing
 
-The SLATE team should contribute changes via the standard feature branch/pull request GitFlow.
+The team should contribute changes via the standard feature branch/pull request GitFlow.
 
 Currently `./.github/workflows/docs.yml` will run on pull requests that touch this content, parse the source for documentation, and then append that documentation to the `./README.md` via a new commit on that feature branch.
-
-## Configure Terraform to Store State in a Cloud Storage Bucket
-
-> **_NOTE:_** This is only necessary the first time you migrate to Terraform from the manual implementation.
-
-1. Initialize Terraform.
-   ```shell
-   $ terraform init
-   ```
-   If you get an error, comment out the content in `./backend.tf` and try again.
-1. Create the bucket.
-   ```shell
-   $ terraform apply -var-file ./secrets.tfvars --target="module.tfstate-bucket"
-   ```
-1. Change the backend configuration by hard-coding the new bucket name into `./backend.tf` as described in [Store Terraform state in a Cloud Storage bucket](https://cloud.google.com/docs/terraform/resource-management/store-state#change_the_backend_configuration).
-1. Run the following to re-configure your Terraform backend.
-   ```shell
-   terraform init
-   ```
-   Terraform will detect your local state file and prompt you to copy it to the new Cloud Storage bucket.
 
 ## Prepare Working Directory
 
@@ -57,16 +37,16 @@ Currently `./.github/workflows/docs.yml` will run on pull requests that touch th
 
 1. Always begin by displaying the changes required by the current configuration.
    ```shell
-   $ terraform plan -var-file ./secrets.tfvars
+   $ terraform plan -var-file ./override.tf
    ```
 1. Follow that by creating and/or updating the infrastructure.
    ```shell
-   $ terraform apply -var-file ./secrets.tfvars
+   $ terraform apply -var-file ./override.tf
    ```
    If an error occurs, check the **Gotchas** below for additional commands.
 1. And if necessary, remove the previously-created infrastructure.
    ```shell
-   $ terraform destroy -var-file ./secrets.tfvars
+   $ terraform destroy -var-file ./override.tf
    ```
 
 See the resource links below for more details on the `terraform` CLI.
@@ -88,23 +68,21 @@ As described in [GitHub: Gracefully handle soft deletes #12941](https://github.c
    ```
 1. Import the new state into terraform for both the pools and providers.
    ```shell
-   $ terraform import  -var-file ./secrets.tfvars google_iam_workload_identity_pool.github-workflows github-workflows
-   $ terraform import  -var-file ./secrets.tfvars google_iam_workload_identity_pool_provider.github-workflow-provider github-workflows/github-workflow-provider
+   $ terraform import  -var-file ./override.tf google_iam_workload_identity_pool.github-workflows github-workflows
+   $ terraform import  -var-file ./override.tf google_iam_workload_identity_pool_provider.github-workflow-provider github-workflows/github-workflow-provider
    ```
 
 1. Re-run the `apply` command:
    ```shell
-   terraform apply -var-file ./secrets.tfvars
+   terraform apply -var-file ./override.tf
    ```
 
 ### Error acquiring the state lock
 
-It is possible to cause an error with the state lock file when doing things like pounding **Ctrl + c** during `terraform appy <args>`. There are probably other ways to arrive at this error but we have not encountered them yet.
-
-If your state is stored in the Google bucket (described above), the error will resemble:
+It is possible to cause an error with the state lock file when doing things like pounding **Ctrl + c** during `terraform appy <args>`. There are probably other ways to arrive at this error, but we have not encountered them yet.
 
 ```shell
-$ terraform plan -var-file ./secrets.tfvars
+$ terraform plan -var-file ./override.tf
 ╷
 │ Error: Error acquiring the state lock
 │ 
