@@ -17,13 +17,13 @@ Terraform module for the perfSONAR sandbox project currently focusing on the Goo
    
     * Enabling either of these via Terraform requires they already be enabled ([learn more](https://medium.com/rockedscience/how-to-fully-automate-the-deployment-of-google-cloud-platform-projects-with-terraform-16c33f1fb31f)).
 
-1. A populated `./override.tf` file created from `./override.tf.tmpl`
+1. A populated `./override.tfvars` file created from `./override.tfvars.tmpl`
 
 ## Contributing
 
 The team should contribute changes via the standard feature branch/pull request GitFlow.
 
-Currently `./.github/workflows/docs.yml` will run on pull requests that touch this content, parse the source for documentation, and then append that documentation to the `./README.md` via a new commit on that feature branch.
+Currently `./.github/workflows/terraform-docs.yml` will run on pull requests that touch this content, parse the source for documentation, and then append that documentation to the `./README.md` via a new commit on that feature branch.
 
 ## Prepare Working Directory
 
@@ -37,16 +37,16 @@ Currently `./.github/workflows/docs.yml` will run on pull requests that touch th
 
 1. Always begin by displaying the changes required by the current configuration.
    ```shell
-   $ terraform plan -var-file ./override.tf
+   $ terraform plan -var-file ./override.tfvars
    ```
 1. Follow that by creating and/or updating the infrastructure.
    ```shell
-   $ terraform apply -var-file ./override.tf
+   $ terraform apply -var-file ./override.tfvars
    ```
    If an error occurs, check the **Gotchas** below for additional commands.
 1. And if necessary, remove the previously-created infrastructure.
    ```shell
-   $ terraform destroy -var-file ./override.tf
+   $ terraform destroy -var-file ./override.tfvars
    ```
 
 See the resource links below for more details on the `terraform` CLI.
@@ -68,13 +68,13 @@ As described in [GitHub: Gracefully handle soft deletes #12941](https://github.c
    ```
 1. Import the new state into terraform for both the pools and providers.
    ```shell
-   $ terraform import  -var-file ./override.tf google_iam_workload_identity_pool.github-workflows github-workflows
-   $ terraform import  -var-file ./override.tf google_iam_workload_identity_pool_provider.github-workflow-provider github-workflows/github-workflow-provider
+   $ terraform import  -var-file ./override.tfvars google_iam_workload_identity_pool.github-workflows github-workflows
+   $ terraform import  -var-file ./override.tfvars google_iam_workload_identity_pool_provider.github-workflow-provider github-workflows/github-workflow-provider
    ```
 
 1. Re-run the `apply` command:
    ```shell
-   terraform apply -var-file ./override.tf
+   terraform apply -var-file ./override.tfvars
    ```
 
 ### Error acquiring the state lock
@@ -82,7 +82,7 @@ As described in [GitHub: Gracefully handle soft deletes #12941](https://github.c
 It is possible to cause an error with the state lock file when doing things like pounding **Ctrl + c** during `terraform appy <args>`. There are probably other ways to arrive at this error, but we have not encountered them yet.
 
 ```shell
-$ terraform plan -var-file ./override.tf
+$ terraform plan -var-file ./override.tfvars
 ╷
 │ Error: Error acquiring the state lock
 │ 
