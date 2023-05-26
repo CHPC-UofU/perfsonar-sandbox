@@ -25,7 +25,7 @@ variable "region" {
 variable "software_stack_name" {
   description = "The name of the software stack."
   type        = string
-  default     = "perfsonarsandbox"
+  default     = "sandbox"
 }
 
 variable "zone" {
