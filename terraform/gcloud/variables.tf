@@ -2,6 +2,12 @@
 #- Variables
 #
 
+variable "num_instances" {
+  description = "The number of compute instances to create."
+  type        = number
+  default     = 3
+}
+
 variable "project_id" {
   description = "The Project ID for the Google Cloud project."
   type        = string
