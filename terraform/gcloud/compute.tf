@@ -9,6 +9,7 @@ module "vm_instance_template" {
   version = "~>8.0.1"
 
   name_prefix     = "${var.software_stack_name}-instance-template"
+  labels          = { environment = "dev" }
   project_id      = module.enabled_google_apis.project_id
   region          = var.region
   service_account = {
