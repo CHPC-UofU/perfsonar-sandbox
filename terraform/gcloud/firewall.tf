@@ -32,34 +32,17 @@ resource "google_compute_firewall" "allow_internal_ipv6" {
   source_ranges = [ google_compute_subnetwork.vpc_subnet.external_ipv6_prefix ]
 }
 
-resource "google_compute_firewall" "allow_ssh_ipv4" {
+resource "google_compute_firewall" "allow-ingress-from-iap-ipv4" {
   allow {
-    ports    = [ "22" ]
+    ports    = [ "22", "3389" ]
     protocol = "tcp"
   }
 
-  description   = "(IPv4) Allows TCP connections from any source to any instance on the network using port 22."
+  description   = "(IPv4) Allows RDP and SSH connections from Google IAP services to any instance on the network."
   direction     = "INGRESS"
-  disabled      = true
-  name          = "${var.software_stack_name}-allow-ssh-ipv4"
+  name          = "${var.software_stack_name}-allow-ingress-from-iap-ipv4"
   network       = google_compute_network.vpc.name
   priority      = 65534
   project       = module.enabled_google_apis.project_id
-  source_ranges = [ "0.0.0.0/0" ]
-}
-
-resource "google_compute_firewall" "allow_ssh_ipv6" {
-  allow {
-    ports    = [ "22" ]
-    protocol = "tcp"
-  }
-
-  description   = "(IPv6) Allows TCP connections from any source to any instance on the network using port 22."
-  direction     = "INGRESS"
-  disabled      = true
-  name          = "${var.software_stack_name}-allow-ssh-ipv6"
-  network       = google_compute_network.vpc.name
-  priority      = 65534
-  project       = module.enabled_google_apis.project_id
-  source_ranges = [ "::/0" ]
+  source_ranges = [ "35.235.240.0/20" ]
 }
