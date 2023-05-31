@@ -2,6 +2,12 @@
 #- Outputs
 #
 
+output "vm_compute_instances" {
+  description = "List of all details for compute instances."
+  value = module.vm_compute_instance.instances_details
+  sensitive = true
+}
+
 output "vpc_name" {
   description = "Virtual Private Cloud (VPC) name."
   value       = google_compute_network.vpc.name
