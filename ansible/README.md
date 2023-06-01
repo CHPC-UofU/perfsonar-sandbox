@@ -21,6 +21,16 @@ Ansible Playbook for the perfSONAR sandbox project currently focusing on the Goo
    gcloud auth application-default login
    ```
 
+## Connecting to VMs
+
+Manually SSH to a VM via IAP tunnelling:
+
+```shell
+$ gcloud compute ssh default-001
+```
+
+or let Ansible do it.
+
 ## Resources
 
 * [How to tell Ansible to use GCP IAP tunneling](https://xebia.com/blog/how-to-tell-ansible-to-use-gcp-iap-tunneling/)
