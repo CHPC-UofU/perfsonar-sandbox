@@ -34,6 +34,18 @@ variable "software_stack_name" {
   default     = "sandbox"
 }
 
+variable "source_image_family" {
+  description = "The source image family in the associated project."
+  type        = string
+  default     = "centos-7"
+}
+
+variable "source_image_project" {
+  description = "The project where the source image comes from."
+  type        = string
+  default     = "centos-cloud"
+}
+
 variable "zone" {
   description = "The zone within a region where resources are hosted."
   type        = string

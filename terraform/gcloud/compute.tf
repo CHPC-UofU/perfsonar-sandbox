@@ -8,11 +8,11 @@ module "vm_instance_template" {
   source  = "terraform-google-modules/vm/google//modules/instance_template"
   version = "~>8.0.1"
 
-  name_prefix     = "${var.software_stack_name}-instance-template"
-  labels          = { environment = "dev" }
-  project_id      = module.enabled_google_apis.project_id
-  region          = var.region
-  service_account = {
+  name_prefix          = "${var.software_stack_name}-instance-template"
+  labels               = { environment = "dev" }
+  project_id           = module.enabled_google_apis.project_id
+  region               = var.region
+  service_account      = {
     email  = "${var.project_number}-compute@developer.gserviceaccount.com"
     scopes = [
       "https://www.googleapis.com/auth/devstorage.read_only",
@@ -23,7 +23,10 @@ module "vm_instance_template" {
       "https://www.googleapis.com/auth/trace.append"
     ]
   }
-  subnetwork      = google_compute_subnetwork.vpc_subnet.name
+  source_image_family  = var.source_image_family
+  source_image_project = var.source_image_project
+  stack_type           = "IPV4_ONLY"
+  subnetwork           = google_compute_subnetwork.vpc_subnet.name
 
 }
 
