@@ -1,0 +1,6 @@
+
+# Local inventory file:
+inventory/gcp.yml
+
+# Python
+venv/

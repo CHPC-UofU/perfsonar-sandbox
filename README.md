@@ -4,3 +4,4 @@
 
 perfSONAR sandbox.
 * [Set up GCloud with Terraform](terraform/gcloud/README.md)
+* [Ansible Playbook](ansible/README.md)
