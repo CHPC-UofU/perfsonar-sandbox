@@ -4,11 +4,13 @@
 
 variable "perfsonar_instances" {
   description = <<EOF
-asdfasdfasdf
+The perfSONAR instances, each comprised of:
+* num_instances: The number of compute instances to create.
+* role: The perfSONAR role to assign to the instance as a label.
 EOF
   type = list(object({
-    num_instances = string
-    role          = number
+    num_instances = number
+    role          = string
   }))
   default = [
     {
@@ -24,14 +26,6 @@ EOF
       role          = "toolkit"
     }
   ]
-}
-
-
-
-variable "num_testpoint_instances" {
-  description = "The number of perfSONAR Testpoint compute instances to create."
-  type        = number
-  default     = 3
 }
 
 variable "project_id" {
