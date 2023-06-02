@@ -1,6 +1,46 @@
 ---
 
-- name: perfSONAR toolkit
+- name: perfSONAR Archive
+  hosts:
+    - label_bundle_archive
+
+  tasks:
+    - name: Install EPEL RPM
+      ansible.builtin.package:
+        name: epel-release
+        state: present
+
+    - name: Install perfSONAR-repo RPM
+      ansible.builtin.package:
+        name: http://software.internet2.edu/rpms/el7/x86_64/latest/packages/perfsonar-repo-0.11-1.noarch.rpm
+        state: present
+
+    - name: Install perfSONAR Archive bundle
+      ansible.builtin.package:
+        name: perfsonar-archive
+        state: present
+
+- name: perfSONAR Testpoint
+  hosts:
+    - label_bundle_testpoint
+
+  tasks:
+    - name: Install EPEL RPM
+      ansible.builtin.package:
+        name: epel-release
+        state: present
+
+    - name: Install perfSONAR-repo RPM
+      ansible.builtin.package:
+        name: http://software.internet2.edu/rpms/el7/x86_64/latest/packages/perfsonar-repo-0.11-1.noarch.rpm
+        state: present
+
+    - name: Install perfSONAR Testpoint bundle
+      ansible.builtin.package:
+        name: perfsonar-testpoint
+        state: present
+
+- name: perfSONAR Toolkit
   hosts:
     - label_bundle_toolkit
 
