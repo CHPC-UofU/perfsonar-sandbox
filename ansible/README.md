@@ -9,11 +9,11 @@ Ansible Playbook for the perfSONAR sandbox project currently focusing on the Goo
    ```shell
    $ python3.9 -m venv venv
    $ source ./venv/bin/activate
-   $ (venv) pip install -r ./requirements.txt
+   (venv) $ pip install -r ./requirements.txt
    ```
 1. Downloaded Ansible requirements.
    ```shell
-   $ (venv) ansible-galaxy install -r ./requirements.yml
+   (venv) $ ansible-galaxy install -r ./requirements.yml
    ```
 1. An installed and configured [gcloud CLI](https://cloud.google.com/sdk/docs/install#linux).
 1. Authentication with the GCP.
@@ -27,7 +27,7 @@ Ansible Playbook for the perfSONAR sandbox project currently focusing on the Goo
 Test the configuration by viewing the dynamic inventory:
 
 ```shell
-(venv) ansible-inventory -i ./inventory/gcp.yml --graph
+(venv) $ ansible-inventory -i ./inventory/gcp.yml --graph
 ```
 
 Manually SSH to a VM via IAP tunnelling to propagate your SSH key file:
@@ -36,10 +36,35 @@ Manually SSH to a VM via IAP tunnelling to propagate your SSH key file:
 $ gcloud compute ssh <hostname>
 ```
 
-and ping a specific group via Ansible:
+and ping each group via Ansible to make sure the SSH key works:
 
 ```shell
-(venv) ansible _role_archive -i ./inventory/gcp.yml -m ping --private-key=~/.ssh/google_compute_engine
+(venv) $ ansible _role_archive -i ./inventory/gcp.yml -m ping --private-key=~/.ssh/google_compute_engine
+```
+
+## Run the Playbook
+
+Once the SSH keys are set up locally and on the remote hosts, play the Ansible.
+
+```shell
+(venv) $ ansible-playbook playbook.yml
+
+PLAY [perfSONAR toolkit] ************************************************************************************************************************************
+
+TASK [Gathering Facts] **************************************************************************************************************************************
+ok: [<IPv4>]
+
+TASK [Install EPEL RPM] *************************************************************************************************************************************
+ok: [<IPv4>]
+
+TASK [Install perfSONAR-repo RPM] ***************************************************************************************************************************
+[WARNING]: Module remote_tmp /root/.ansible/tmp did not exist and was created with a mode of 0700, this may cause issues when running as another user. To
+avoid this, create the remote_tmp dir with the correct permissions manually
+changed: [<IPv4>]
+
+TASK [Install perfSONAR Toolkit bundle] *********************************************************************************************************************
+
+...
 ```
 
 ## Resources
