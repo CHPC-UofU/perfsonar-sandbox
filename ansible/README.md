@@ -18,7 +18,8 @@ Ansible Playbook for the perfSONAR sandbox project currently focusing on the Goo
 1. An installed and configured [gcloud CLI](https://cloud.google.com/sdk/docs/install#linux).
 1. Authentication with the GCP.
    ```shell
-   gcloud auth application-default login
+   $ gcloud auth application-default login
+   $ gcloud auth login
    ```
 
 ## Connecting to VMs
@@ -26,10 +27,20 @@ Ansible Playbook for the perfSONAR sandbox project currently focusing on the Goo
 Manually SSH to a VM via IAP tunnelling:
 
 ```shell
-$ gcloud compute ssh default-001
+$ gcloud compute ssh <hostname>
 ```
 
-or let Ansible do it.
+or let Ansible do it. For example, test the configuration:
+
+```shell
+(venv) ansible-inventory -i ./inventory/gcp.yml --graph
+```
+
+and ping a specific group. E.g.
+
+```shell
+(venv) ansible _role_archive -i ./inventory/gcp.yml -m ping --private-key=~/.ssh/google_compute_engine
+```
 
 ## Resources
 

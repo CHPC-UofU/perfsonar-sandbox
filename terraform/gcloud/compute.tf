@@ -10,8 +10,8 @@ module "vm_instance_template" {
   source  = "terraform-google-modules/vm/google//modules/instance_template"
   version = "~>8.0.1"
 
-  name_prefix          = "${var.software_stack_name}-${each.value.role}-instance-template"
-  labels               = { role = each.value.role }
+  name_prefix          = "${var.software_stack_name}-${each.key}-instance-template"
+  labels               = { role = each.key }
   project_id           = module.enabled_google_apis.project_id
   region               = var.region
   service_account      = {
@@ -44,9 +44,9 @@ module "vm_compute_instance" {
   source  = "terraform-google-modules/vm/google//modules/compute_instance"
   version = "~>8.0.1"
 
-#  add_hostname_suffix   = false
-  hostname              = each.value.role
-  instance_template     = module.vm_instance_template[each.value.role].name
+  add_hostname_suffix   = each.value.num_instances > 1 ? true : false
+  hostname              = each.key
+  instance_template     = module.vm_instance_template[each.key].name
   num_instances         = each.value.num_instances
   region                = var.region
   subnetwork            = google_compute_subnetwork.vpc_subnet.name
