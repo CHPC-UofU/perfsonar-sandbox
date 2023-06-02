@@ -11,7 +11,7 @@ module "vm_instance_template" {
   version = "~>8.0.1"
 
   name_prefix          = "${var.software_stack_name}-${each.key}-instance-template"
-  labels               = { role = each.key }
+  labels               = { bundle = each.key }
   project_id           = module.enabled_google_apis.project_id
   region               = var.region
   service_account      = {
