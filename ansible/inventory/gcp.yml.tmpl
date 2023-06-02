@@ -10,10 +10,11 @@ projects:
 auth_kind: application
 keyed_groups:
   - key: labels
-groups:
-  archive : "archive in label"
-  testpoint: "testpoint in label"
-  toolkit: "toolkit in label"
+    prefix: label
+  - key: project
+    prefix: project
+  - key: zone
+    prefix: zone
 compose:
   # set the ansible_host variable to connect with the private IP address without changing the hostname
   ansible_host: name

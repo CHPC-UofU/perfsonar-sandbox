@@ -24,19 +24,19 @@ Ansible Playbook for the perfSONAR sandbox project currently focusing on the Goo
 
 ## Connecting to VMs
 
-Manually SSH to a VM via IAP tunnelling:
-
-```shell
-$ gcloud compute ssh <hostname>
-```
-
-or let Ansible do it. For example, test the configuration:
+Test the configuration by viewing the dynamic inventory:
 
 ```shell
 (venv) ansible-inventory -i ./inventory/gcp.yml --graph
 ```
 
-and ping a specific group. E.g.
+Manually SSH to a VM via IAP tunnelling to propagate your SSH key file:
+
+```shell
+$ gcloud compute ssh <hostname>
+```
+
+and ping a specific group via Ansible:
 
 ```shell
 (venv) ansible _role_archive -i ./inventory/gcp.yml -m ping --private-key=~/.ssh/google_compute_engine
