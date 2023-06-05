@@ -39,7 +39,7 @@ $ gcloud compute ssh <hostname>
 and ping each group via Ansible to make sure the SSH key works:
 
 ```shell
-(venv) $ ansible _role_archive -i ./inventory/gcp.yml -m ping --private-key=~/.ssh/google_compute_engine
+(venv) $ ansible label_bundle_archive -i ./inventory/gcp.yml -m ping --private-key=~/.ssh/google_compute_engine
 ```
 
 ## Run the Playbook

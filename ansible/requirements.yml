@@ -1,2 +1,5 @@
 collections:
   - google.cloud
+roles:
+  - src: https://github.com/perfsonar/ansible-role-perfsonar-installer
+    version: fix-CentOS-repo
