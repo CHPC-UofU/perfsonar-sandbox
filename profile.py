@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-"""This profile allocates three bare metal nodes and connects them directly together via a layer1 link.
+"""This profile allocates four XenVM nodes, allocates routable IPv4s for each, and connects them directly together via a LAN.
 
 Instructions:
 Click on any node in the topology and choose the `shell` menu item. When your shell window appears, use `ping` to test the link."""
