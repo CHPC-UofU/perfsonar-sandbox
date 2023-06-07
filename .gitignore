@@ -1,6 +1,6 @@
 
 # Shared ignore patterns:
-
+venv/
 
 
 # All other ignore patterns are described in <subdir>/.gitignore.
