@@ -38,10 +38,10 @@ lan.best_effort = True
 
 # Add VMs to the request that can be accessed from the public Internet.
 for bundle in bundleList:
-    bundleName: str = bundle[0][0]
-    bundleCount: int = bundle[0][1]
+    bundleName = bundle[0][0]
+    bundleCount = bundle[0][1]
 
-    for i in range(bundleCount):
+    for i in range(int(bundleCount)):
         vmName = "%s-%d" % (bundleName, i)
         node = request.XenVM(vmName)
         node.routable_control_ip = True
