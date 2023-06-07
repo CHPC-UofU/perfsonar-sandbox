@@ -18,6 +18,9 @@ pc = portal.Context()
 # Create a Request object to start building the RSpec.
 request = pc.makeRequestRSpec()
 
+# perfSONAR bundles.
+bundleList = [('archive', 1), ('testpoint', 2), ('toolkit', 1)]
+
 # Pick your OS.
 imageList = [
     ('urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU22-64-STD', 'CENTOS7-64-STD')]
@@ -29,24 +32,22 @@ pc.defineParameter('osImage', "Select OS image",
 params = pc.bindParameters()
 pc.verifyParameters()
 
-# Add an Archive VM to the request that can be accessed from the public Internet.
-archive = request.XenVM("archive")
-archive.disk_image = params.osImage
-archive.routable_control_ip = True
-
-# Add a Testpoint VM to the request that can be accessed from the public Internet.
-testpoint1 = request.XenVM("testpoint1")
-testpoint1.disk_image = params.osImage
-testpoint1.routable_control_ip = True
-
-# Add a Toolkit VM to the request that can be accessed from the public Internet.
-toolkit = request.XenVM("toolkit")
-toolkit.disk_image = params.osImage
-toolkit.routable_control_ip = True
-
-# Create a best effort LAN between them.
-lan = request.LAN(members=[archive, testpoint1, toolkit])
+# Create the best effort LAN between the VM nodes.
+lan = request.LAN()
 lan.best_effort = True
+
+# Add VMs to the request that can be accessed from the public Internet.
+for bundle in bundleList:
+    bundleName = bundle[0][0]
+    bundleCount = bundle[0][1]
+
+    for i in range(bundleCount):
+        vmName = f'{bundleName}-{i}'
+        node = request.XenVM(vmName)
+        node.routable_control_ip = True
+        node.disk_image = params.osImage
+        iface = node.addInterface("eth1")
+        lan.addInterface(iface)
 
 # Print the RSpec to the enclosing page.
 pc.printRequestRSpec(request)
