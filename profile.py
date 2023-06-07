@@ -23,7 +23,9 @@ bundleList = [('archive', 1), ('testpoint', 2), ('toolkit', 1)]
 
 # Pick your OS.
 imageList = [
-    ('urn:publicid:IDN+emulab.net+image+emulab-ops//CENTOS7-64-STD', 'CENTOS7-64-STD')]
+    ('urn:publicid:IDN+emulab.net+image+emulab-ops//CENTOS7-64-STD', 'CENTOS7-64-STD'),
+    ('urn:publicid:IDN+emulab.net+image+emulab-ops//CENTOS8S-64-STD', 'CENTOS8S-64-STD'),
+    ('urn:publicid:IDN+emulab.net+image+emulab-ops//ROCKY9-64-STD', 'ROCKY9-64-STD')]
 
 # Create, bind, and verify some user-configurable parameters.
 pc.defineParameter('osImage', "Select OS image",
