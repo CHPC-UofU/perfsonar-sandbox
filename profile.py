@@ -38,8 +38,8 @@ lan.best_effort = True
 
 # Add VMs to the request that can be accessed from the public Internet.
 for bundle in bundleList:
-    bundleName = bundle[0][0]
-    bundleCount = bundle[0][1]
+    bundleName: str = bundle[0][0]
+    bundleCount: int = bundle[0][1]
 
     for i in range(bundleCount):
         vmName = "%s-%d" % (bundleName, i)
