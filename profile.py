@@ -42,7 +42,7 @@ for bundle in bundleList:
     bundleCount = bundle[0][1]
 
     for i in range(bundleCount):
-        vmName = f'{bundleName}{str(i)}'
+        vmName = "%s-%d" % (bundleName, i)
         node = request.XenVM(vmName)
         node.routable_control_ip = True
         node.disk_image = params.osImage
