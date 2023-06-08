@@ -1,0 +1,25 @@
+---
+
+- name: perfSONAR Archive
+  hosts:
+    - ps_archive
+  roles:
+    - ansible-role-perfsonar-installer
+  vars:
+    perfsonar_bundle: perfsonar-archive
+
+- name: perfSONAR Testpoint
+  hosts:
+    - ps_testpoint
+  roles:
+    - ansible-role-perfsonar-installer
+  vars:
+    perfsonar_bundle: perfsonar-testpoint
+
+- name: perfSONAR Toolkit
+  hosts:
+    - ps_toolkit
+  roles:
+    - ansible-role-perfsonar-installer
+  vars:
+    perfsonar_bundle: perfsonar-toolkit

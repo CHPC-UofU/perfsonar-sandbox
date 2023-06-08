@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-"""This profile allocates four XenVM nodes, allocates routable IPv4s for each, and connects them directly together via a LAN.
+"""This CloudLab profile allocates four XenVM nodes, allocates routable IPv4s for each, and connects them directly together via a LAN.
 
 Instructions:
 Click on any node in the topology and choose the `shell` menu item. When your shell window appears, use `ping` to test the link."""
