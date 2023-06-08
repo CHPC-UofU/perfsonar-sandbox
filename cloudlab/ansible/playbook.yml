@@ -7,6 +7,8 @@
     - ansible-role-perfsonar-installer
   vars:
     perfsonar_bundle: perfsonar-archive
+    perfsonar_optional_packages:
+      - perfsonar-toolkit-security
 
 - name: perfSONAR Testpoint
   hosts:
@@ -15,6 +17,8 @@
     - ansible-role-perfsonar-installer
   vars:
     perfsonar_bundle: perfsonar-testpoint
+    perfsonar_optional_packages:
+      - perfsonar-toolkit-security
 
 - name: perfSONAR Toolkit
   hosts:
