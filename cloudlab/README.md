@@ -28,6 +28,7 @@ The CloudLab profile is defined in `<repo root>/profile.py` using the `geni-lib`
 1. Create an experiment on CloudLab using this profile (`perfsonar_sandbox`).
 1. Copy `./inventory/hosts.tmpl` to `./inventory/hosts`.
 1. Replace the placeholder variables with actual values.
+   * Use an SSH without a passphrase, otherwise the example commands below will not work.
 1. Test connecting to the experiment.
    ```shell
    (venv) $ ansible all -m ping
