@@ -5,6 +5,30 @@
     - ps_archive
   roles:
     - ansible-role-perfsonar-installer
+  tasks:
+    - name: NTP tuning
+      command: >-
+        /usr/lib/perfsonar/scripts/configure_ntpd new
+    - name: Restart ntpd
+      service:
+        name: ntpd
+        state: restarted
+    - name: System tuning
+      command: >-
+        /usr/lib/perfsonar/scripts/configure_sysctl
+    - name: Configure Firewall
+      command: >-
+        /usr/lib/perfsonar/scripts/configure_firewall install
+    - name: Start and enable fail2ban
+      service:
+        name: fail2ban
+        state: started
+        enabled: yes
+    - name: Start and enable yum-cron
+      service:
+        name: yum-cron
+        state: started
+        enabled: yes
   vars:
     perfsonar_bundle: perfsonar-archive
     perfsonar_optional_packages:
@@ -19,6 +43,30 @@
     - ps_testpoint
   roles:
     - ansible-role-perfsonar-installer
+  tasks:
+    - name: NTP tuning
+      command: >-
+        /usr/lib/perfsonar/scripts/configure_ntpd new
+    - name: Restart ntpd
+      service:
+        name: ntpd
+        state: restarted
+    - name: System tuning
+      command: >-
+        /usr/lib/perfsonar/scripts/configure_sysctl
+    - name: Configure Firewall
+      command: >-
+        /usr/lib/perfsonar/scripts/configure_firewall install
+    - name: Start and enable fail2ban
+      service:
+        name: fail2ban
+        state: started
+        enabled: yes
+    - name: Start and enable yum-cron
+      service:
+        name: yum-cron
+        state: started
+        enabled: yes
   vars:
     perfsonar_bundle: perfsonar-testpoint
     perfsonar_optional_packages:
