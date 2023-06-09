@@ -8,7 +8,11 @@
   vars:
     perfsonar_bundle: perfsonar-archive
     perfsonar_optional_packages:
+      - perfsonar-toolkit-ntp
       - perfsonar-toolkit-security
+      - perfsonar-toolkit-servicewatcher
+      - perfsonar-toolkit-sysctl
+      - perfsonar-toolkit-systemenv-testpoint
 
 - name: perfSONAR Testpoint
   hosts:
@@ -18,7 +22,11 @@
   vars:
     perfsonar_bundle: perfsonar-testpoint
     perfsonar_optional_packages:
+      - perfsonar-toolkit-ntp
       - perfsonar-toolkit-security
+      - perfsonar-toolkit-servicewatcher
+      - perfsonar-toolkit-sysctl
+      - perfsonar-toolkit-systemenv-testpoint
 
 - name: perfSONAR Toolkit
   hosts:
