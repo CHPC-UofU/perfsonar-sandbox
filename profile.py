@@ -18,8 +18,10 @@ pc = portal.Context()
 # Create a Request object to start building the RSpec.
 request = pc.makeRequestRSpec()
 
-# perfSONAR bundles.
-bundleList = [('archive', 1), ('testpoint', 2), ('toolkit', 1)]
+# Variable number of nodes.
+pc.defineParameter("nodeCount", "Number of Nodes", portal.ParameterType.INTEGER, 6,
+                   longDescription="If you specify more then three nodes, " +
+                                   "we will create a lan for you.")
 
 # Pick your OS.
 imageList = [
@@ -27,11 +29,17 @@ imageList = [
     ('urn:publicid:IDN+emulab.net+image+emulab-ops//CENTOS8S-64-STD', 'CENTOS8S-64-STD'),
     ('urn:publicid:IDN+emulab.net+image+emulab-ops//ROCKY9-64-STD', 'ROCKY9-64-STD')]
 
-# Create, bind, and verify some user-configurable parameters.
 pc.defineParameter('osImage', "Select OS image",
                    portal.ParameterType.IMAGE,
                    imageList[0], imageList)
+
+# Retrieve the values the user specifies during instantiation.
 params = pc.bindParameters()
+
+# Check parameter validity.
+if params.nodeCount < 3:
+    pc.reportError(portal.ParameterError("You must choose at least 3 nodes.", ["nodeCount"]))
+
 pc.verifyParameters()
 
 # Create the best effort LAN between the VM nodes.
@@ -39,17 +47,13 @@ lan = request.LAN()
 lan.best_effort = True
 
 # Add VMs to the request that can be accessed from the public Internet.
-for bundle in bundleList:
-    bundleName = bundle[0]
-    bundleCount = bundle[1]
-
-    for i in range(bundleCount):
-        vmName = "%s-%d" % (bundleName, i)
-        node = request.XenVM(vmName)
-        node.routable_control_ip = True
-        node.disk_image = params.osImage
-        iface = node.addInterface("eth1")
-        lan.addInterface(iface)
+for i in range(params.nodeCount):
+    vmName = "%s-%d" % ('vm', i)
+    node = request.XenVM(vmName)
+    node.routable_control_ip = True
+    node.disk_image = params.osImage
+    iface = node.addInterface("eth1")
+    lan.addInterface(iface)
 
 # Print the RSpec to the enclosing page.
 pc.printRequestRSpec(request)
