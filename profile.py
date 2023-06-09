@@ -19,9 +19,7 @@ pc = portal.Context()
 request = pc.makeRequestRSpec()
 
 # Variable number of nodes.
-pc.defineParameter("nodeCount", "Number of Nodes", portal.ParameterType.INTEGER, 6,
-                   longDescription="If you specify more then three nodes, " +
-                                   "we will create a lan for you.")
+pc.defineParameter("nodeCount", "Number of Nodes", portal.ParameterType.INTEGER, 6)
 
 # Pick your OS.
 imageList = [
