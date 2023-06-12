@@ -48,6 +48,8 @@ lan.best_effort = True
 for i in range(params.nodeCount):
     vmName = "%s-%d" % ('vm', i)
     node = request.XenVM(vmName)
+    node.cores = 4
+    node.ram = 8192
     node.routable_control_ip = True
     node.disk_image = params.osImage
     iface = node.addInterface("eth1")
