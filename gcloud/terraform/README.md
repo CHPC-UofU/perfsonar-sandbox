@@ -110,4 +110,58 @@ See [Command: force-unlock](https://developer.hashicorp.com/terraform/cli/comman
 * [Command: force-unlock](https://developer.hashicorp.com/terraform/cli/commands/force-unlock)
 
 <!-- BEGIN_TF_DOCS -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.4.1 |
+| <a name="requirement_google"></a> [google](#requirement\_google) | ~> 4.60.0 |
+| <a name="requirement_null"></a> [null](#requirement\_null) | ~> 3.2.1 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_google"></a> [google](#provider\_google) | 4.60.2 |
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_enabled_google_apis"></a> [enabled\_google\_apis](#module\_enabled\_google\_apis) | terraform-google-modules/project-factory/google//modules/project_services | ~>14.2.0 |
+| <a name="module_vm_compute_instance"></a> [vm\_compute\_instance](#module\_vm\_compute\_instance) | terraform-google-modules/vm/google//modules/compute_instance | ~>8.0.1 |
+| <a name="module_vm_instance_template"></a> [vm\_instance\_template](#module\_vm\_instance\_template) | terraform-google-modules/vm/google//modules/instance_template | ~>8.0.1 |
+| <a name="module_vpc_router"></a> [vpc\_router](#module\_vpc\_router) | terraform-google-modules/cloud-router/google | ~>5.0.0 |
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [google_compute_firewall.allow-ingress-from-iap-ipv4](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
+| [google_compute_firewall.allow_internal_ipv4](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
+| [google_compute_firewall.allow_internal_ipv6](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall) | resource |
+| [google_compute_network.vpc](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_network) | resource |
+| [google_compute_subnetwork.vpc_subnet](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_subnetwork) | resource |
+| [google_client_config.default](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/client_config) | data source |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_perfsonar_instances"></a> [perfsonar\_instances](#input\_perfsonar\_instances) | The perfSONAR instances, each comprised of:<br>* num\_instances: The number of compute instances to create.<br>* role: The perfSONAR role to assign to the instance as a label. | <pre>list(object({<br>    num_instances = number<br>    role          = string<br>  }))</pre> | <pre>[<br>  {<br>    "num_instances": 1,<br>    "role": "archive"<br>  },<br>  {<br>    "num_instances": 1,<br>    "role": "testpoint"<br>  },<br>  {<br>    "num_instances": 1,<br>    "role": "toolkit"<br>  }<br>]</pre> | no |
+| <a name="input_project_id"></a> [project\_id](#input\_project\_id) | The Project ID for the Google Cloud project. | `string` | `""` | no |
+| <a name="input_project_number"></a> [project\_number](#input\_project\_number) | The Project Number for the Google Cloud project | `string` | `""` | no |
+| <a name="input_region"></a> [region](#input\_region) | The region is a specific geographical location where resources are hosted. | `string` | `"us-central1"` | no |
+| <a name="input_software_stack_name"></a> [software\_stack\_name](#input\_software\_stack\_name) | The name of the software stack. | `string` | `"sandbox"` | no |
+| <a name="input_source_image_family"></a> [source\_image\_family](#input\_source\_image\_family) | The source image family in the associated project. | `string` | `"centos-7"` | no |
+| <a name="input_source_image_project"></a> [source\_image\_project](#input\_source\_image\_project) | The project where the source image comes from. | `string` | `"centos-cloud"` | no |
+| <a name="input_stack_type"></a> [stack\_type](#input\_stack\_type) | The stack type for the compute instance interfaces to identify whether the IPv6 feature is enabled or not. | `string` | `"IPV4_ONLY"` | no |
+| <a name="input_zone"></a> [zone](#input\_zone) | The zone within a region where resources are hosted. | `string` | `"us-central1-c"` | no |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_vpc_name"></a> [vpc\_name](#output\_vpc\_name) | Virtual Private Cloud (VPC) name. |
+| <a name="output_vpc_subnet_name"></a> [vpc\_subnet\_name](#output\_vpc\_subnet\_name) | Virtual Private Cloud (VPC) subnet name. |
 <!-- END_TF_DOCS -->  
